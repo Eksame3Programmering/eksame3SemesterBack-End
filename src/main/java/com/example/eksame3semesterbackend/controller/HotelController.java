@@ -26,8 +26,8 @@ public class HotelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Hotel> getHotelById(@PathVariable Long id) {
-        Optional<Hotel> hotel = hotelService.getHotelById(id);
+    public ResponseEntity<HotelDTO> getHotelById(@PathVariable Long id) {
+        Optional<HotelDTO> hotel = hotelService.getHotelById(id);
         return hotel.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

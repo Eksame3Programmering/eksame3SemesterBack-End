@@ -1,6 +1,5 @@
 package com.example.eksame3semesterbackend.config;
 
-import com.example.eksame3semesterbackend.dto.HotelDTO;
 import com.example.eksame3semesterbackend.entity.Hotel;
 import com.example.eksame3semesterbackend.entity.Room;
 import com.example.eksame3semesterbackend.service.HotelService;

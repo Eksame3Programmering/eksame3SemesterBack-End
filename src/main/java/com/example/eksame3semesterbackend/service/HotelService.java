@@ -14,15 +14,18 @@ import java.util.stream.Collectors;
 @Service
 
 public class HotelService {
+
     @Autowired
     HotelRepository hotelRepository;
 
-
     public List<HotelDTO> getAllHotels() {
         List<Hotel> hotels = hotelRepository.findAll();
+        return hotels.stream().map(this::mapHotel)
+                .collect(Collectors.toList());
+    }
 
-        return hotels.stream().map(h -> HotelDTO
-                .builder()
+    private HotelDTO mapHotel(Hotel h) {
+        return HotelDTO.builder()
                 .id(h.getId())
                 .name(h.getName())
                 .street(h.getStreet())
@@ -32,12 +35,11 @@ public class HotelService {
                 .rooms(h.getRooms().size())
                 .created(LocalDateTime.now())
                 .updated(LocalDateTime.now())
-                .build()
-        ).collect(Collectors.toList());
+                .build();
     }
 
-    public Optional<Hotel> getHotelById(Long id) {
-        return hotelRepository.findById(id);
+    public Optional<HotelDTO> getHotelById(Long id) {
+        return hotelRepository.findById(id).map(this::mapHotel);
     }
 
     public  Hotel createHotel(Hotel hotel) {

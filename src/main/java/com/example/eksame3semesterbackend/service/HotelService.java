@@ -24,6 +24,7 @@ public class HotelService {
         return hotels.stream().map(h -> HotelDTO
                 .builder()
                 .id(h.getId())
+                .name(h.getName())
                 .street(h.getStreet())
                 .city(h.getCity())
                 .zip(h.getZip())

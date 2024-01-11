@@ -1,5 +1,6 @@
 package com.example.eksame3semesterbackend.service;
 
+import com.example.eksame3semesterbackend.dto.HotelDTO;
 import com.example.eksame3semesterbackend.entity.Hotel;
 import com.example.eksame3semesterbackend.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -16,8 +18,21 @@ public class HotelService {
     HotelRepository hotelRepository;
 
 
-    public List<Hotel> getAllHotels() {
-        return hotelRepository.findAll();
+    public List<HotelDTO> getAllHotels() {
+        List<Hotel> hotels = hotelRepository.findAll();
+
+        return hotels.stream().map(h -> HotelDTO
+                .builder()
+                .id(h.getId())
+                .street(h.getStreet())
+                .city(h.getCity())
+                .zip(h.getZip())
+                .country(h.getCountry())
+                .rooms(h.getRooms().size())
+                .created(LocalDateTime.now())
+                .updated(LocalDateTime.now())
+                .build()
+        ).collect(Collectors.toList());
     }
 
     public Optional<Hotel> getHotelById(Long id) {

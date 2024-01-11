@@ -1,5 +1,6 @@
 package com.example.eksame3semesterbackend.controller;
 
+import com.example.eksame3semesterbackend.dto.HotelDTO;
 import com.example.eksame3semesterbackend.entity.Hotel;
 import com.example.eksame3semesterbackend.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class HotelController {
     private HotelService hotelService;
 
     @GetMapping
-    public ResponseEntity<List<Hotel>> getAllHotels() {
-        List<Hotel> hotels = hotelService.getAllHotels();
+    public ResponseEntity<List<HotelDTO>> getAllHotels() {
+        List<HotelDTO> hotels = hotelService.getAllHotels();
         return new ResponseEntity<>(hotels, HttpStatus.OK);
     }
 

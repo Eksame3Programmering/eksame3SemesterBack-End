@@ -1,5 +1,6 @@
 package com.example.eksame3semesterbackend.config;
 
+import com.example.eksame3semesterbackend.dto.HotelDTO;
 import com.example.eksame3semesterbackend.entity.Hotel;
 import com.example.eksame3semesterbackend.entity.Room;
 import com.example.eksame3semesterbackend.service.HotelService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -25,9 +27,7 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        //List<Hotel> dummyHotels = generateDummyHotels(250);
-        // You can now use the list of dummyHotels or perform any additional logic
-
+    //List<Hotel> dummyHotels = generateDummyHotels(50);
 
     }
 
@@ -45,13 +45,13 @@ public class InitData implements CommandLineRunner {
 
     private List<Room> createRooms() {
         List<Room> rooms = new ArrayList<>();
-        for (int i = 0; i < 32; i++) {
+        int randomNumber = new Random().nextInt(30) + 10; // Generates a random number between 10 and 39
+        for (int i = 0; i < randomNumber; i++) {
             Room room = createRoom("RoomNumber" + i, getRandomNumberOfBeds());
             rooms.add(room);
         }
         return rooms;
     }
-
     private int getRandomNumberOfBeds() {
         // Generate a random number between 2 and 4
         return ThreadLocalRandom.current().nextInt(2, 5);

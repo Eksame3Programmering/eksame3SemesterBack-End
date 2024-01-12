@@ -51,4 +51,10 @@ public class HotelController {
         hotelService.deleteHotel(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/byTypeAnnotations/{typeAnnotation}")
+    public List<Hotel> getHotelsByTypeAnnotations(@PathVariable String typeAnnotation) {
+        return hotelService.getHotelsByTypeAnnotations(typeAnnotation);
+    }
+
 }

@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
-    @Query("SELECT h, COUNT(r) FROM Hotel h LEFT JOIN h.rooms r GROUP BY h")
-    List<Object[]> findHotelsWithRoomCount();
+    List<Hotel> findByTypeAnnotations(String typeAnnotation);
 }

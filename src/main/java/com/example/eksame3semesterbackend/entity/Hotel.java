@@ -27,6 +27,8 @@ public class Hotel {
     private String city;
     private String zip;
     private String country;
+    private String typeAnnotations;
+
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("hotel")  // Add this annotation to break the loop

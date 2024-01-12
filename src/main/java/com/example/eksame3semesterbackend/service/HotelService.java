@@ -66,4 +66,8 @@ public class HotelService {
         hotelRepository.deleteById(id);
     }
 
+
+    public List<Hotel> getHotelsByTypeAnnotations(String typeAnnotation) {
+        return hotelRepository.findByTypeAnnotations(typeAnnotation);
+    }
 }

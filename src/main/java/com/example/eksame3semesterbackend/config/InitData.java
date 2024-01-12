@@ -17,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Component
 public class InitData implements CommandLineRunner {
 
+
     @Autowired
     private HotelService hotelService;
 
@@ -25,9 +26,7 @@ public class InitData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-     List<Hotel> dummyHotels = generateDummyHotels(50);
-
+        List<Hotel> dummyHotels = generateDummyHotels(250);
     }
 
     private List<Hotel> generateDummyHotels(int numberOfHotels) {
@@ -35,7 +34,7 @@ public class InitData implements CommandLineRunner {
 
         for (int i = 0; i < numberOfHotels; i++) {
             List<Room> rooms = createRooms();
-            Hotel hotel = createHotel("HotelName" + i, "HotelStreet" + i, "Copenhagen", "2200", "Denmark", rooms);
+            Hotel hotel = createHotel("HotelName" + i, "HotelStreet" + i, "Copenhagen", "2200", "Denmark","",rooms);
             dummyHotels.add(hotel);
         }
 
@@ -51,14 +50,21 @@ public class InitData implements CommandLineRunner {
         }
         return rooms;
     }
+
     private int getRandomNumberOfBeds() {
         // Generate a random number between 2 and 4
         return ThreadLocalRandom.current().nextInt(2, 5);
     }
 
-    private Hotel createHotel(String name, String street, String city, String zip, String country, List<Room> rooms) {
+    private Hotel createHotel(String name, String street, String city, String zip, String country, String typeAnnotations, List<Room> rooms) {
         LocalDateTime now = LocalDateTime.now();
-        Hotel hotel = new Hotel(0L, name, street, city, zip, country, new ArrayList<>(), now, now);
+
+        // If typeAnnotations is empty, generate random type annotations
+        if (typeAnnotations.isEmpty()) {
+            typeAnnotations = generateRandomTypeAnnotations();
+        }
+
+        Hotel hotel = new Hotel(0L, name, street, city, zip, country, typeAnnotations, new ArrayList<>(), now, now);
 
         // Set the hotel in each room
         for (Room room : rooms) {
@@ -69,10 +75,7 @@ public class InitData implements CommandLineRunner {
         hotel.setRooms(rooms);
 
         // Save the hotel
-
         return hotelService.createHotel(hotel);
-
-
     }
 
     private Room createRoom(String roomNumber, int numberOfBeds) {
@@ -83,4 +86,22 @@ public class InitData implements CommandLineRunner {
         return roomService.createRoom(new Room(0L, roomNumber, numberOfBeds, totalPrice, null, new ArrayList<>(), now, now));
     }
 
+    private String generateRandomTypeAnnotations() {
+        List<String> typeAnnotations = new ArrayList<>();
+        String[] possibleAnnotations = {"parking for cars", "close to the city"};
+
+        // Ensure at least one of the predefined annotations is included
+        int randomIndex = new Random().nextInt(possibleAnnotations.length);
+        typeAnnotations.add(possibleAnnotations[randomIndex]);
+
+        // Include additional random annotations if needed
+        int numberOfAdditionalAnnotations = new Random().nextInt(2); // Choose a random number of additional annotations (0 to 2)
+        for (int i = 0; i < numberOfAdditionalAnnotations; i++) {
+            int randomIndexAdditional = new Random().nextInt(possibleAnnotations.length);
+            typeAnnotations.add(possibleAnnotations[randomIndexAdditional]);
+        }
+
+        // Join the annotations into a single string separated by commas
+        return String.join(",", typeAnnotations);
+    }
 }

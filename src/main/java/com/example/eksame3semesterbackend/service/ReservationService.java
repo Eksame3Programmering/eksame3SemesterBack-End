@@ -34,7 +34,7 @@ public class ReservationService {
                 .map(existingReservation -> {
                     existingReservation.setRoom(updatedReservation.getRoom());
                     existingReservation.setGuest(updatedReservation.getGuest());
-                    existingReservation.setReservationDate(updatedReservation.getReservationDate());
+                    existingReservation.setDays(updatedReservation.getDays());
                     existingReservation.setUpdated(LocalDateTime.now());
                     return reservationRepository.save(existingReservation);
                 })

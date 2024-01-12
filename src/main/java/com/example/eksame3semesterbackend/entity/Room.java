@@ -1,5 +1,6 @@
 package com.example.eksame3semesterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class Room {
 
     private String roomNumber;
     private int numberOfBeds;
+    private int priceOfBeds;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
@@ -36,4 +38,6 @@ public class Room {
 
     @Column(name = "updated")
     private LocalDateTime updated;
+
+
 }

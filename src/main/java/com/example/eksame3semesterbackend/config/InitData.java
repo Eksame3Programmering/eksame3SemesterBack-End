@@ -26,7 +26,7 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-    //List<Hotel> dummyHotels = generateDummyHotels(50);
+     List<Hotel> dummyHotels = generateDummyHotels(50);
 
     }
 
@@ -44,7 +44,7 @@ public class InitData implements CommandLineRunner {
 
     private List<Room> createRooms() {
         List<Room> rooms = new ArrayList<>();
-        int randomNumber = new Random().nextInt(30) + 10; // Generates a random number between 10 and 39
+        int randomNumber = new Random().nextInt(5) + 10; // Generates a random number between 10 and 39
         for (int i = 0; i < randomNumber; i++) {
             Room room = createRoom("RoomNumber" + i, getRandomNumberOfBeds());
             rooms.add(room);
@@ -72,12 +72,15 @@ public class InitData implements CommandLineRunner {
 
         return hotelService.createHotel(hotel);
 
-        //if you dont want to save
-       //return hotel;
+
     }
 
     private Room createRoom(String roomNumber, int numberOfBeds) {
         LocalDateTime now = LocalDateTime.now();
-        return roomService.createRoom(new Room(0L, roomNumber, numberOfBeds, null, new ArrayList<>(), now, now));
+
+        int pricePerBed = 100; // Set your desired price per bed
+        int totalPrice = numberOfBeds * pricePerBed;
+        return roomService.createRoom(new Room(0L, roomNumber, numberOfBeds, totalPrice, null, new ArrayList<>(), now, now));
     }
+
 }

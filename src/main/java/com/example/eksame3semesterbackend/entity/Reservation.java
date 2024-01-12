@@ -1,5 +1,6 @@
 package com.example.eksame3semesterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,16 +21,17 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
+    @JsonIgnore
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")
+    @JsonIgnore
     private Guest guest;
 
-    @Column(name = "reservation_date")
-    private LocalDateTime reservationDate;
+    private int days;
 
     @Column(name = "created")
     private LocalDateTime created;

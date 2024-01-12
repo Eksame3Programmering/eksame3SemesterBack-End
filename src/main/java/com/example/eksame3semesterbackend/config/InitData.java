@@ -26,7 +26,7 @@ public class InitData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<Hotel> dummyHotels = generateDummyHotels(250);
+        List<Hotel> dummyHotels = generateDummyHotels(50);
     }
 
     private List<Hotel> generateDummyHotels(int numberOfHotels) {

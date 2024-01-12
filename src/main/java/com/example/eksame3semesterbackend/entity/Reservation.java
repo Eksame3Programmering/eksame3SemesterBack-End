@@ -31,7 +31,7 @@ public class Reservation {
     @JsonIgnore
     private Guest guest;
 
-    private int days;
+    private int numberOfDays;
 
     @Column(name = "created")
     private LocalDateTime created;

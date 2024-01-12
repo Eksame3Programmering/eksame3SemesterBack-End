@@ -14,6 +14,9 @@ public class RoomService {
 
     @Autowired
     RoomRepository roomRepository;
+    public List<Room> findAllRoomsInHotel(Long hotelId) {
+        return roomRepository.findAllRoomsInHotel(hotelId);
+    }
 
     public List<Room> getAllRooms() {
         return roomRepository.findAll();

@@ -18,6 +18,13 @@ public class RoomController {
     @Autowired
     RoomService roomService;
 
+
+    @GetMapping("/hotels/{hotelId}")
+    public ResponseEntity<List<Room>> getAllRoomsInHotel(@PathVariable Long hotelId) {
+        List<Room> roomsInHotel = roomService.findAllRoomsInHotel(hotelId);
+        return new ResponseEntity<>(roomsInHotel, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Room>> getAllRooms() {
         List<Room> rooms = roomService.getAllRooms();
